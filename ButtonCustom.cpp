@@ -9,6 +9,8 @@ ButtonCustom::ButtonCustom(int pin, int ledPin, bool isLightOn) {
     pinMode(ledPin, OUTPUT);
 }
 
+//check if button is pressed with debounce
+// debounce is probably not needed right now as we are checking on release but keep it for now
 bool ButtonCustom::isPressed() {
     static unsigned long lastPressTime = 0;
     unsigned long now = millis();
