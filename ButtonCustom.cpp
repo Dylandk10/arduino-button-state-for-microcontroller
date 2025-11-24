@@ -45,9 +45,5 @@ void ButtonCustom::checkIsPressed() {
 }
 
 void ButtonCustom::setLightOnOrOff() {
-    if(_isLightOn) {
-        digitalWrite(_ledPin, HIGH);
-    } else {
-        digitalWrite(_ledPin, LOW);
-    }
+    digitalWrite(_ledPin, _isLightOn);
 }
