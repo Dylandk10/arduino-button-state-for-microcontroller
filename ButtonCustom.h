@@ -2,20 +2,22 @@
 #define BUTTONCUSTOM_H
 
 #include <Arduino.h>
+#include "LedHandler.h"
+
 
 class ButtonCustom {
 public:
-    ButtonCustom(int pin, int ledPin, bool isLightOn);
+    ButtonCustom(int pin, LedHandler* ledHandler);
     bool isPressed();
     void checkIsPressed();
-    void setLightOnOrOff();
+    void moveLight();
     bool wasReleased();
 
 private:
     int _pin;
-    int _ledPin;
-    bool _isLightOn;
+    bool _isClicked;
     int _lastButtonState;
+    LedHandler* _ledHandler;
 };
 
 #endif

@@ -1,12 +1,12 @@
 #include "ButtonCustom.h"
+#include "LedHandler.h"
 
-ButtonCustom::ButtonCustom(int pin, int ledPin, bool isLightOn) {
+ButtonCustom::ButtonCustom(int pin, LedHandler* ledHandler) {
     _pin = pin;
-    _ledPin = ledPin;
-    _isLightOn = isLightOn;
+    _ledHandler = ledHandler;
     _lastButtonState = HIGH; // set to high because we want it to start off
+    _isClicked = false;
     pinMode(pin, INPUT_PULLUP);
-    pinMode(ledPin, OUTPUT);
 }
 
 //check if button is pressed with debounce
@@ -40,12 +40,12 @@ bool ButtonCustom::wasReleased() {
 }
 
 void ButtonCustom::checkIsPressed() {
-    if (wasReleased()) {
-        _isLightOn = !_isLightOn;
+    if (wasReleased() && !isPressed()) {
+        _isClicked = !_isClicked;
+        moveLight();
     }
-    setLightOnOrOff();
 }
 
-void ButtonCustom::setLightOnOrOff() {
-    digitalWrite(_ledPin, _isLightOn);
+void ButtonCustom::moveLight() {
+    _ledHandler->moveToNextLight();
 }
